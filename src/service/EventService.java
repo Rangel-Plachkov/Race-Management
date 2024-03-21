@@ -13,6 +13,14 @@ import java.time.LocalDate;
 
 @SuppressWarnings("UnusedDeclaration")
 public class EventService {
+    public static void main(String[] args) {
+
+        EventRepository eventRepository = new EventRepository();
+        eventRepository.createEvent(new Event());
+        EventService eventService = new EventService();
+        System.out.println(eventService.getAllEvents());
+
+    }
     EventRepository eventRepository = new EventRepository();
 
     public List<Event> getAllEvents(){
