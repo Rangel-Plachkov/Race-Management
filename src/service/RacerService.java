@@ -8,8 +8,7 @@ import java.util.Objects;
 
 @SuppressWarnings("UnusedDeclaration")
 public class RacerService {
-    RacerRepository racerRepository = new RacerRepository();
-
+    public static RacerRepository racerRepository = new RacerRepository();
     public List<Racer> getAllRacers() {
         return racerRepository.getAllRacers();
     }

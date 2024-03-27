@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
 
 @SuppressWarnings("UnusedDeclaration")
 public class RacerRepository {
@@ -31,7 +32,7 @@ public class RacerRepository {
             return Optional.of(racerTable.get(id));
     }
     public List<Racer> getAllRacers() {
-        return (List<Racer>) racerTable.values();
+        return new ArrayList<>(racerTable.values());
     }
 
 }
