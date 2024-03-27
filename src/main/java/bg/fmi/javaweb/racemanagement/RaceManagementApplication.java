@@ -3,20 +3,15 @@ package bg.fmi.javaweb.racemanagement;
 import bg.fmi.javaweb.racemanagement.service.*;
 import bg.fmi.javaweb.racemanagement.models.*;
 import java.time.LocalDate;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
-
-
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-
-
 
 @SpringBootApplication
 public class RaceManagementApplication implements CommandLineRunner{
@@ -39,22 +34,19 @@ public class RaceManagementApplication implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
         System.out.println("Application started");
-
-/*        System.out.println("List of Beans provided by Spring Boot:");
+/*
+        System.out.println("List of Beans provided by Spring Boot:");
         String[] beanNames = context.getBeanDefinitionNames();
         List<String> beanClasses = Stream.of(beanNames)
                 .map(el -> context.getBean(el).getClass().toString())
                 .filter(el -> el.contains("bg.fmi"))
                 .toList();
         beanClasses.forEach(System.out::println);
-
         // uncomment to see all loaded beans
         Arrays.sort(beanNames);
         for (String beanName : beanNames) {
             System.out.println(beanName + " - " + context.getBean(beanName).getClass());
         }*/
-
-
 
         /*//RaceService tests
         racerService.createRacer("Ivan", "Ivanov", 25);
@@ -83,8 +75,6 @@ public class RaceManagementApplication implements CommandLineRunner{
         eventService.createEvent("Varna-Tour", new Track("Varna", 300), LocalDate.EPOCH);
         eventService.createEvent("Burgas-Tour", new Track("Burgas", 400), LocalDate.EPOCH);
         System.out.println(eventService.getAllEvents());*/
-
-
 
     }
 }
