@@ -1,7 +1,7 @@
-package bg.fmi.javaweb.racemanagement3.service;
+package bg.fmi.javaweb.racemanagement.service;
 
-import bg.fmi.javaweb.racemanagement3.models.*;
-import bg.fmi.javaweb.racemanagement3.repository.*;
+import bg.fmi.javaweb.racemanagement.models.*;
+import bg.fmi.javaweb.racemanagement.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

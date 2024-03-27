@@ -1,4 +1,4 @@
-package bg.fmi.javaweb.racemanagement3.models;
+package bg.fmi.javaweb.racemanagement.models;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Racer {

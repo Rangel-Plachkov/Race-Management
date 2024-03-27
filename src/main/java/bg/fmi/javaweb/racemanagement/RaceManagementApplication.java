@@ -1,8 +1,8 @@
-package bg.fmi.javaweb.racemanagement3;
+package bg.fmi.javaweb.racemanagement;
 
-import bg.fmi.javaweb.racemanagement3.models.Racer;
+import bg.fmi.javaweb.racemanagement.models.Racer;
 
-import bg.fmi.javaweb.racemanagement3.service.RacerService;
+import bg.fmi.javaweb.racemanagement.service.RacerService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,10 +16,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class RaceManagement3Application implements CommandLineRunner{
+public class RaceManagementApplication implements CommandLineRunner{
 
     public static void main(String[] args) {
-        SpringApplication.run(RaceManagement3Application.class, args);
+        SpringApplication.run(RaceManagementApplication.class, args);
         /*
 
         Racer racer1 = new Racer("Ivan", "Ivanov", 25);

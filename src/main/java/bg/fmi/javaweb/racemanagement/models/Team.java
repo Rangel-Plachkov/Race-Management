@@ -1,4 +1,4 @@
-package bg.fmi.javaweb.racemanagement3.models;
+package bg.fmi.javaweb.racemanagement.models;
 
 import java.util.ArrayList;
 
