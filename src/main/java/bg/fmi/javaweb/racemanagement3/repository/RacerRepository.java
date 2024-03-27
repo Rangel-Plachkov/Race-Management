@@ -1,18 +1,17 @@
-package repository;
+package bg.fmi.javaweb.racemanagement3.repository;
 
-import models.Racer;
+import bg.fmi.javaweb.racemanagement3.models.*;
+import org.springframework.stereotype.Repository;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.ArrayList;
+import java.util.*;
 
 @SuppressWarnings("UnusedDeclaration")
+@Repository
 public class RacerRepository {
     private static final Map<Integer, Racer> racerTable = new HashMap<>();
 
     public void createRacer(Racer racer) {
+
         if(racer.getID() != null) {
             throw new IllegalArgumentException("Cannot create Racer with already given ID.");
         }

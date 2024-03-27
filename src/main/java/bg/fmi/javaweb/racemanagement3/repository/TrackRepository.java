@@ -1,6 +1,7 @@
-package repository;
+package bg.fmi.javaweb.racemanagement3.repository;
 
-import models.Track;
+import bg.fmi.javaweb.racemanagement3.models.*;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ArrayList;
 @SuppressWarnings("UnusedDeclaration")
+@Repository
 public class TrackRepository {
 
     private static final Map<Integer, Track> trackMapTable = new HashMap<>();

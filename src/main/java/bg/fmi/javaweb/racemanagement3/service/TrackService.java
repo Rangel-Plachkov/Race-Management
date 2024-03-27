@@ -1,12 +1,16 @@
-package service;
+package bg.fmi.javaweb.racemanagement3.service;
 
-import repository.TrackRepository;
-import models.Track;
+import bg.fmi.javaweb.racemanagement3.models.*;
+import bg.fmi.javaweb.racemanagement3.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 @SuppressWarnings("UnusedDeclaration")
+@Service
 public class TrackService {
-    TrackRepository trackRepository = new TrackRepository();
+    @Autowired
+    TrackRepository trackRepository;
 
     public List<Track> getAllTracks() {
         return trackRepository.getAllTracks();

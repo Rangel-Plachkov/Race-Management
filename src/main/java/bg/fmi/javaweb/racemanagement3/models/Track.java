@@ -1,4 +1,4 @@
-package models;
+package bg.fmi.javaweb.racemanagement3.models;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Track {
@@ -9,14 +9,6 @@ public class Track {
     public String name;
     public Integer length; //in meters
 
-    public static void main(String[] args) {
-        Track track1 = new Track();
-        track1.setID();
-        Track track2 = new Track("models.Track 2", 100);
-        track2.setID();
-        System.out.println(track1);
-        System.out.println(track2);
-    }
     public Track() {
         setName(DEFAULT_NAME);
         setLength(DEFAULT_LENGTH);

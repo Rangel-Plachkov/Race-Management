@@ -1,12 +1,14 @@
-package repository;
+package bg.fmi.javaweb.racemanagement3.repository;
 
-import models.Team;
+import bg.fmi.javaweb.racemanagement3.models.*;
+import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 @SuppressWarnings("UnusedDeclaration")
+@Repository
 public class TeamRepository {
 
     private static final Map<String, Team> teamTable = new HashMap<>();

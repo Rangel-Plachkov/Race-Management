@@ -1,4 +1,4 @@
-package models;
+package bg.fmi.javaweb.racemanagement3.models;
 
 import java.util.ArrayList;
 
@@ -8,12 +8,6 @@ public class Team {
     private String name;
     private final ArrayList<Racer> racers;
 
-    public static void main(String[] args) {
-        Team team1 = new Team();
-        Team team2 = new Team("models.Team 2");
-        System.out.println(team1);
-        System.out.println(team2);
-    }
     public Team() {
         setName(DEFAULT_NAME);
         racers = new ArrayList<>();
