@@ -1,6 +1,6 @@
 package bg.fmi.javaweb.racemanagement.repository;
 
-import bg.fmi.javaweb.racemanagement.models.*;
+import bg.fmi.javaweb.racemanagement.models.Track;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;

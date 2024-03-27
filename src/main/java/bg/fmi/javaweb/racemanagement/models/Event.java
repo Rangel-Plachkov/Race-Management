@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Event {
-    private static final String DEFAULT_NAME = "Unknown models.Event";
+    private static final String DEFAULT_NAME = "Unknown Event";
     private static final LocalDate DEFAULT_DATE = LocalDate.EPOCH;
     private static Integer nextID = 0;
     private Integer ID;
@@ -23,6 +23,12 @@ public class Event {
         setName(name);
         setTrack(track);
         this.teams = teams;
+        setDate(date);
+    }
+    public Event(String name, Track track, LocalDate date) {
+        setName(name);
+        setTrack(track);
+        teams = new ArrayList<>();
         setDate(date);
     }
 
@@ -62,6 +68,6 @@ public class Event {
     }
     @Override
     public String toString() {
-        return String.format("models.Event %d: %s, %s, %d teams, %s", ID, name, track, teams.size(), date);
+        return String.format("Event %d: %s, %s, %d teams, %s", ID, name, track, teams.size(), date);
     }
 }

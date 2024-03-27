@@ -1,7 +1,8 @@
 package bg.fmi.javaweb.racemanagement.service;
 
-import bg.fmi.javaweb.racemanagement.models.*;
-import bg.fmi.javaweb.racemanagement.repository.*;
+import bg.fmi.javaweb.racemanagement.models.Team;
+
+import bg.fmi.javaweb.racemanagement.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class TeamService {
                 .filter(team -> Objects.equals(team.getName(), teamName) )
                 .toList();
     }
-    public void createTeam(String name, String country) {
+    public void createTeam(String name) {
         teamRepository.createTeam(new Team(name));
     }
     public boolean deleteTeamByName(String name) {

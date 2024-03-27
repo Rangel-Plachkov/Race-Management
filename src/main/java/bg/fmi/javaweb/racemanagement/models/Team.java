@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Team {
-    private static final String DEFAULT_NAME = "Unknown models.Team";
+    private static final String DEFAULT_NAME = "Unknown Team";
     private String name;
     private final ArrayList<Racer> racers;
 
@@ -35,7 +35,7 @@ public class Team {
     }
     @Override
     public String toString() {
-        return String.format("models.Team: %s, %d racers", name, racers.size());
+        return String.format("Team: %s, %d racers", name, racers.size());
     }
 
 

@@ -1,7 +1,8 @@
 package bg.fmi.javaweb.racemanagement.service;
 
 import bg.fmi.javaweb.racemanagement.models.*;
-import bg.fmi.javaweb.racemanagement.repository.*;
+import bg.fmi.javaweb.racemanagement.repository.EventRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,12 @@ public class EventService {
                 .toList();
     }
     public void createEvent(String eventName, Track track, ArrayList<Team> teams, LocalDate date){
-        eventRepository.createEvent(new Event());
+        eventRepository.createEvent(new Event(eventName, track, teams, date));
     }
+    public void createEvent(String eventName, Track track, LocalDate date){
+        eventRepository.createEvent(new Event(eventName, track, date));
+    }
+
     public boolean deleteEventByID(Integer eventID){
         return eventRepository.deleteEventById(eventID);
     }
