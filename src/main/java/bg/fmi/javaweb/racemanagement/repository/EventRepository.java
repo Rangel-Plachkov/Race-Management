@@ -1,6 +1,7 @@
-package repository;
+package bg.fmi.javaweb.racemanagement.repository;
 
-import models.Event;
+import bg.fmi.javaweb.racemanagement.models.Event;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.Optional;
 
 import java.util.stream.Collectors;
 
-@SuppressWarnings("UnusedDeclaration")
+@Repository
 public class EventRepository {
 
     private static final Map<Integer, Event> eventTable = new HashMap<>();

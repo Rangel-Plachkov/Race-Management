@@ -1,6 +1,5 @@
-package models;
+package bg.fmi.javaweb.racemanagement.models;
 
-@SuppressWarnings("UnusedDeclaration")
 public class Racer {
     private static final String DEFAULT_NAME = "Unknown";
     private static final Integer DEFAULT_AGE = 0;
@@ -9,15 +8,6 @@ public class Racer {
     private String firstName;
     private String lastName;
     private Integer age;
-
-    public static void main(String[] args) {
-        Racer racer1 = new Racer();
-        racer1.setID();
-        Racer racer2 = new Racer("John", "Doe", 25);
-        racer2.setID();
-        System.out.println(racer1);
-        System.out.println(racer2);
-    }
 
     public Racer() {
         setFirstName(DEFAULT_NAME);
@@ -62,7 +52,7 @@ public class Racer {
     }
     @Override
     public String toString() {
-        return String.format("models.Racer %d: %s %s, %d years old", ID, firstName, lastName, age);
+        return String.format("Racer %d: %s %s, %d years old", ID, firstName, lastName, age);
     }
 
 }

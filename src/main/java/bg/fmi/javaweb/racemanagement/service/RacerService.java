@@ -1,14 +1,19 @@
-package service;
+package bg.fmi.javaweb.racemanagement.service;
 
-import models.Racer;
-import repository.RacerRepository;
+import bg.fmi.javaweb.racemanagement.models.Racer;
+import bg.fmi.javaweb.racemanagement.repository.RacerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 
-@SuppressWarnings("UnusedDeclaration")
+@Service
 public class RacerService {
-    public static RacerRepository racerRepository = new RacerRepository();
+
+    @Autowired
+    RacerRepository racerRepository;
+
     public List<Racer> getAllRacers() {
         return racerRepository.getAllRacers();
     }

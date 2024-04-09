@@ -1,13 +1,18 @@
-package service;
+package bg.fmi.javaweb.racemanagement.service;
 
-import repository.TeamRepository;
-import models.Team;
+import bg.fmi.javaweb.racemanagement.models.Team;
+
+import bg.fmi.javaweb.racemanagement.repository.TeamRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-@SuppressWarnings("UnusedDeclaration")
+
+@Service
 public class TeamService {
-    TeamRepository teamRepository = new TeamRepository();
+    @Autowired
+    TeamRepository teamRepository;
 
     public List<Team> getAllTeams() {
         return teamRepository.getAllTeams();
@@ -17,7 +22,7 @@ public class TeamService {
                 .filter(team -> Objects.equals(team.getName(), teamName) )
                 .toList();
     }
-    public void createTeam(String name, String country) {
+    public void createTeam(String name) {
         teamRepository.createTeam(new Team(name));
     }
     public boolean deleteTeamByName(String name) {

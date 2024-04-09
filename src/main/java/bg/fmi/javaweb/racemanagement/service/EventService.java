@@ -1,27 +1,20 @@
-package service;
+package bg.fmi.javaweb.racemanagement.service;
 
-import models.Racer;
-import models.Track;
-import repository.EventRepository;
-import models.Event;
-import models.Team;
+import bg.fmi.javaweb.racemanagement.models.*;
+import bg.fmi.javaweb.racemanagement.repository.EventRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 
-@SuppressWarnings("UnusedDeclaration")
+@Service
 public class EventService {
-    public static void main(String[] args) {
-
-        EventRepository eventRepository = new EventRepository();
-        eventRepository.createEvent(new Event());
-        EventService eventService = new EventService();
-        System.out.println(eventService.getAllEvents());
-
-    }
-    EventRepository eventRepository = new EventRepository();
+    @Autowired
+    EventRepository eventRepository;
 
     public List<Event> getAllEvents(){
         return eventRepository.getAllEvents();
@@ -32,8 +25,12 @@ public class EventService {
                 .toList();
     }
     public void createEvent(String eventName, Track track, ArrayList<Team> teams, LocalDate date){
-        eventRepository.createEvent(new Event());
+        eventRepository.createEvent(new Event(eventName, track, teams, date));
     }
+    public void createEvent(String eventName, Track track, LocalDate date){
+        eventRepository.createEvent(new Event(eventName, track, date));
+    }
+
     public boolean deleteEventByID(Integer eventID){
         return eventRepository.deleteEventById(eventID);
     }

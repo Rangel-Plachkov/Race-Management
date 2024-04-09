@@ -1,22 +1,13 @@
-package models;
+package bg.fmi.javaweb.racemanagement.models;
 
-@SuppressWarnings("UnusedDeclaration")
 public class Track {
-    private static final String DEFAULT_NAME = "Unknown models.Track";
+    private static final String DEFAULT_NAME = "Unknown Track";
     private static final Integer DEFAULT_LENGTH = 0;
     private static Integer nextID = 0;
     public Integer ID;
     public String name;
     public Integer length; //in meters
 
-    public static void main(String[] args) {
-        Track track1 = new Track();
-        track1.setID();
-        Track track2 = new Track("models.Track 2", 100);
-        track2.setID();
-        System.out.println(track1);
-        System.out.println(track2);
-    }
     public Track() {
         setName(DEFAULT_NAME);
         setLength(DEFAULT_LENGTH);
@@ -47,7 +38,7 @@ public class Track {
     }
     @Override
     public String toString() {
-        return String.format("models.Track %d: %s, %d meters", ID, name, length);
+        return String.format("Track %d: %s, %d meters", ID, name, length);
     }
 
 

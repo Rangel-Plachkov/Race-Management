@@ -1,19 +1,12 @@
-package models;
+package bg.fmi.javaweb.racemanagement.models;
 
 import java.util.ArrayList;
 
-@SuppressWarnings("UnusedDeclaration")
 public class Team {
-    private static final String DEFAULT_NAME = "Unknown models.Team";
+    private static final String DEFAULT_NAME = "Unknown Team";
     private String name;
     private final ArrayList<Racer> racers;
 
-    public static void main(String[] args) {
-        Team team1 = new Team();
-        Team team2 = new Team("models.Team 2");
-        System.out.println(team1);
-        System.out.println(team2);
-    }
     public Team() {
         setName(DEFAULT_NAME);
         racers = new ArrayList<>();
@@ -41,7 +34,7 @@ public class Team {
     }
     @Override
     public String toString() {
-        return String.format("models.Team: %s, %d racers", name, racers.size());
+        return String.format("Team: %s, %d racers", name, racers.size());
     }
 
 
