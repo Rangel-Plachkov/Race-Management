@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 
-@SuppressWarnings("UnusedDeclaration")
 @Service
 public class EventService {
     @Autowired

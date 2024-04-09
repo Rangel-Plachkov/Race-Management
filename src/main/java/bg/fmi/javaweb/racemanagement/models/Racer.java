@@ -1,6 +1,5 @@
 package bg.fmi.javaweb.racemanagement.models;
 
-@SuppressWarnings("UnusedDeclaration")
 public class Racer {
     private static final String DEFAULT_NAME = "Unknown";
     private static final Integer DEFAULT_AGE = 0;

@@ -2,7 +2,6 @@ package bg.fmi.javaweb.racemanagement.models;
 
 import java.util.ArrayList;
 
-@SuppressWarnings("UnusedDeclaration")
 public class Team {
     private static final String DEFAULT_NAME = "Unknown Team";
     private String name;

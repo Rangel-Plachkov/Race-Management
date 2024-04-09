@@ -11,7 +11,6 @@ import java.util.Optional;
 
 import java.util.stream.Collectors;
 
-@SuppressWarnings("UnusedDeclaration")
 @Repository
 public class EventRepository {
 

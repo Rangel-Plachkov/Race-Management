@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Optional;
 
-@SuppressWarnings("UnusedDeclaration")
 @Repository
 public class TeamRepository {
 

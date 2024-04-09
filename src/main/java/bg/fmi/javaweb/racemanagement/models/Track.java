@@ -1,6 +1,5 @@
 package bg.fmi.javaweb.racemanagement.models;
 
-@SuppressWarnings("UnusedDeclaration")
 public class Track {
     private static final String DEFAULT_NAME = "Unknown Track";
     private static final Integer DEFAULT_LENGTH = 0;

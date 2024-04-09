@@ -3,7 +3,6 @@ package bg.fmi.javaweb.racemanagement.models;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-@SuppressWarnings("UnusedDeclaration")
 public class Event {
     private static final String DEFAULT_NAME = "Unknown Event";
     private static final LocalDate DEFAULT_DATE = LocalDate.EPOCH;

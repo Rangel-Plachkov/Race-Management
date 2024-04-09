@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Optional;
 
 
-@SuppressWarnings("UnusedDeclaration")
 @Repository
 public class RacerRepository {
     private static final Map<Integer, Racer> racerTable = new HashMap<>();

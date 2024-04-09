@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-@SuppressWarnings("UnusedDeclaration")
+
 @Service
 public class TeamService {
     @Autowired
