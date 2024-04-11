@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.Getter;
 
 @Getter
-@Data
 public class RacerDTO {
     private String firstName;
     private String lastName;
