@@ -1,11 +1,10 @@
 package bg.fmi.javaweb.racemanagement.controller;
 
-
 import bg.fmi.javaweb.racemanagement.models.RacerDTO;
 import bg.fmi.javaweb.racemanagement.service.RacerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 
 @RestController
 @RequestMapping("/racers")
@@ -23,7 +22,7 @@ public class RacerController {
     }
 
     @PostMapping("/")
-    String createRacer(@RequestBody RacerDTO newRacer) {
+    String createRacer(@Valid @RequestBody RacerDTO newRacer) {
         racerService.createRacer(newRacer.getFirstName(), newRacer.getLastName(), newRacer.getAge());
         return newRacer.toString();
     }
@@ -36,7 +35,7 @@ public class RacerController {
         }
     }
     @PatchMapping("/")
-    String updateRacer(@RequestParam(name = "id") Integer id, @RequestBody RacerDTO newRacer) {
+    String updateRacer(@Valid @RequestParam(name = "id") Integer id, @RequestBody RacerDTO newRacer) {
         if (racerService.deleteRacerById(id)) {
             racerService.createRacer(newRacer.getFirstName(), newRacer.getLastName(), newRacer.getAge());
             return "Racer with id " + id + " updated";

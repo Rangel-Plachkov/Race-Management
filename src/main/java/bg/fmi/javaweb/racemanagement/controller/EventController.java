@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+//TODO
 @RestController
 @RequestMapping("/events")
 public class EventController {
@@ -24,12 +25,12 @@ public class EventController {
     @Autowired
     EventService eventService;
 
+
+    //These methods are for testing purposes, will be removed soon
     @GetMapping("/requestParam")
     public String getSomethingWithQuery(@RequestParam("id") Integer id) {
         return "pathVariable" + id;
     }
-
-
     @GetMapping("/pathVariable/{id}")
     public String getSomethingWithPathVar(@PathVariable Integer id) {
         return "pathVariable";
