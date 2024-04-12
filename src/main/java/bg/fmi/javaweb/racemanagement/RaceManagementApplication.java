@@ -18,6 +18,7 @@ public class RaceManagementApplication /*implements CommandLineRunner*/{
 
     public static void main(String[] args) {
         SpringApplication.run(RaceManagementApplication.class, args);
+            
     }
     @Autowired
     private RacerService racerService;
