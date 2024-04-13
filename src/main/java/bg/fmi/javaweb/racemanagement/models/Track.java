@@ -4,9 +4,9 @@ public class Track {
     private static final String DEFAULT_NAME = "Unknown Track";
     private static final Integer DEFAULT_LENGTH = 0;
     private static Integer nextID = 0;
-    public Integer ID;
-    public String name;
-    public Integer length; //in meters
+    private Integer ID;
+    private String name;
+    private Integer length; //in meters
 
     public Track() {
         setName(DEFAULT_NAME);
