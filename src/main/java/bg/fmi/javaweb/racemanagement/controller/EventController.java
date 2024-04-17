@@ -1,23 +1,15 @@
 package bg.fmi.javaweb.racemanagement.controller;
 
+import bg.fmi.javaweb.racemanagement.models.Track;
+import bg.fmi.javaweb.racemanagement.models.TrackDTO;
 import bg.fmi.javaweb.racemanagement.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 
-//TODO
+import java.time.LocalDate;
+
+
 @RestController
 @RequestMapping("/events")
 public class EventController {
@@ -25,26 +17,64 @@ public class EventController {
     @Autowired
     EventService eventService;
 
+    @GetMapping("/before")
+    public String getAllEventsBefore(@RequestParam(name = "date" ,required = false) LocalDate date) {
+        if(date == null) {
+            return eventService.getAllEventsBefore(LocalDate.now()).toString();
+        }
+        return eventService.getAllEventsBefore(date).toString();
+    }
+    @GetMapping("/after")
+    public String getAllEventsAfter(@RequestParam(name = "date" ,required = false) LocalDate date) {
+        if(date == null) {
+            return eventService.getAllEventsAfter(LocalDate.now()).toString();
+        }
+        return eventService.getAllEventsAfter(date).toString();
+    }
+    @GetMapping("/upcoming")
+    public String getUpcomingEvents() {
+        return eventService.getUpcomingEvents().toString();
+    }
+    @GetMapping("/")
+    public String getAllEvents() {
+        return eventService.getAllEvents().toString();
+    }
+    @GetMapping("/track")
+    public String getAllRacersByTrackName(@RequestParam(name = "trackName") String trackName) {
+        return eventService.getAllRacersByTrackName(trackName).toString();
+    }
+    @GetMapping("/nearest/racers")
+    public String getAllRacersFromNearestEvent() {
+        return eventService.getAllRacersFromNearestEvent().toString();
+    }
 
-    //These methods are for testing purposes, will be removed soon
-    @GetMapping("/requestParam")
-    public String getSomethingWithQuery(@RequestParam("id") Integer id) {
-        return "pathVariable" + id;
+    @PostMapping("/")
+    public String createEvent(@RequestParam(name = "eventName") String eventName,
+                              @RequestBody TrackDTO trackDTO,
+                              @RequestParam(name = "date") LocalDate date) {
+
+        Track track = new Track(trackDTO.getName(), trackDTO.getLength());
+        eventService.createEvent(eventName, track, date);
+        return "Event created";
     }
-    @GetMapping("/pathVariable/{id}")
-    public String getSomethingWithPathVar(@PathVariable Integer id) {
-        return "pathVariable";
+    //TODO
+    @PostMapping("/")
+    public String createEvent(@RequestParam(name = "eventName") String eventName,
+                              @RequestBody TrackDTO trackDTO,
+                              @RequestParam(name = "teams") String teams,
+                              @RequestParam(name = "date") LocalDate date) {
+
+        Track track = new Track(trackDTO.getName(), trackDTO.getLength());
+        eventService.createEvent(eventName, track, date);
+        return "Event created";
     }
-    @PostMapping
-    public void fakeMethod() {
-        //testEvent();
-    }
-    @GetMapping
-    public String getCar(@RequestParam("cvqt") String color) {
-        if (color.equals("red")) {
-            return "ferrari";
+
+    @DeleteMapping("/")
+    public String deleteEventByID(@RequestParam(name = "eventID") Integer eventID) {
+        if(eventService.deleteEventByID(eventID)) {
+            return "Event with id " + eventID + " deleted";
         } else {
-            return "opel";
+            return "Event with id " + eventID + " not found";
         }
     }
 }
