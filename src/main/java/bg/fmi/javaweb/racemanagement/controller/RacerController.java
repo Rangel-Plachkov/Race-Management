@@ -10,10 +10,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/racers")
 public class RacerController {
     @Autowired
-    RacerService racerService;
+    private final RacerService racerService;
+
+    public RacerController(RacerService racerService) {
+        this.racerService = racerService;
+    }
+
 
     @GetMapping("/")
-    String getRacers(@RequestParam(name = "firstName", required = false) String firstName) {
+    public String getRacers(@RequestParam(name = "firstName", required = false) String firstName) {
         if (firstName != null) {
             return racerService.getAllRacersByFirstName(firstName).toString();
         } else {
@@ -22,12 +27,12 @@ public class RacerController {
     }
 
     @PostMapping("/")
-    String createRacer(@Valid @RequestBody RacerDTO newRacer) {
+    public String createRacer(@Valid @RequestBody RacerDTO newRacer) {
         racerService.createRacer(newRacer.getFirstName(), newRacer.getLastName(), newRacer.getAge());
         return newRacer.toString();
     }
     @DeleteMapping("/")
-    String deleteRacer(@RequestParam(name = "id") Integer id) {
+    public String deleteRacer(@RequestParam(name = "id") Integer id) {
         if (racerService.deleteRacerById(id)) {
             return "Racer with id " + id + " deleted";
         } else {
@@ -35,7 +40,7 @@ public class RacerController {
         }
     }
     @PatchMapping("/")
-    String updateRacer(@Valid @RequestParam(name = "id") Integer id, @RequestBody RacerDTO newRacer) {
+    public String updateRacer(@Valid @RequestParam(name = "id") Integer id, @RequestBody RacerDTO newRacer) {
         if (racerService.deleteRacerById(id)) {
             racerService.createRacer(newRacer.getFirstName(), newRacer.getLastName(), newRacer.getAge());
             return "Racer with id " + id + " updated";
