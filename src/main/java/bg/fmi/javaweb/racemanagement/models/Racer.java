@@ -1,10 +1,7 @@
 package bg.fmi.javaweb.racemanagement.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
@@ -14,16 +11,29 @@ public class Racer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer ID;
+
+    @NotNull(message = "Racer: firstName can't be null")
+    @NotBlank(message = "Racer: firstName need to have minimum 1 non-white space character")
     private String firstName;
+
+    @NotNull(message = "Racer: lastName can't be null")
+    @NotBlank(message = "Racer: lastName need to have minimum 1 non-white space character")
     private String lastName;
+
+    @NotNull(message = "Racer: age can't be null")
+    @Min(value = 0, message = "Racer: age can't be negative")
     private Integer age;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    Team team;
 
     public Racer() {
     }
     public Racer(String firstName, String lastName, Integer age) {
-        setFirstName(firstName);
-        setLastName(lastName);
-        setAge(age);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
     }
     @Override
     public String toString() {

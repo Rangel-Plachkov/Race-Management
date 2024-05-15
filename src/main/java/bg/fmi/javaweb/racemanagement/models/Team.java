@@ -1,36 +1,31 @@
 package bg.fmi.javaweb.racemanagement.models;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.Data;
 import java.util.ArrayList;
 
+@Data
+@Entity
 public class Team {
-    private static final String DEFAULT_NAME = "Unknown Team";
-    private String name;
-    private final ArrayList<Racer> racers;
 
-    public Team() {
-        setName(DEFAULT_NAME);
-        racers = new ArrayList<>();
-    }
+    @Id
+    @NotNull(message = "Team: name can't be null")
+    @NotBlank(message = "Team: name need to have minimum 1 non-white space character")
+    @Size(max = 32, message = "Team: Team's name need to be maximum of 32 characters length")
+    private String name;
+
+    @NotNull(message = "Team: racers can't be null")
+    @OneToMany(mappedBy = "team")
+    ArrayList<Racer> racers;
+
+
     public Team(String name) {
         setName(name);
         racers = new ArrayList<>();
     }
 
-
-    public void setName(String name) {
-        this.name = (name != null && !name.isEmpty() ? name : DEFAULT_NAME);
-    }
-    public String getName() {
-        return name;
-    }
-    public void addRacer(Racer racer) {
-        racers.add(racer);
-    }
-    public void removeRacer(Racer racer) {
-        racers.remove(racer);
-    }
-    public ArrayList<Racer> getRacers() {
-        return racers;
+    public Team() {
     }
     @Override
     public String toString() {

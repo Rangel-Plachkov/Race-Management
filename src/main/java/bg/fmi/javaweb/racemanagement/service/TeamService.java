@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class TeamService {
@@ -15,19 +16,25 @@ public class TeamService {
     TeamRepository teamRepository;
 
     public List<Team> getAllTeams() {
-        return teamRepository.getAllTeams();
+        return teamRepository.findAll();
     }
     public List<Team> getAllTeamsByTeamName(String teamName) {
-        return teamRepository.getAllTeams().stream()
+        return teamRepository.findAll().stream()
                 .filter(team -> Objects.equals(team.getName(), teamName) )
                 .toList();
     }
     public void createTeam(String name) {
-        teamRepository.createTeam(new Team(name));
+        teamRepository.save(new Team(name));
     }
     public boolean deleteTeamByName(String name) {
-        return teamRepository.deleteTeamByName(name);
+
+        Optional<Team> teamOptional = teamRepository.findById(name);
+        if (teamOptional.isPresent()) {
+            teamRepository.deleteById(name);
+            return true;
+        } else {
+            return false;
+        }
+
     }
-
-
 }
