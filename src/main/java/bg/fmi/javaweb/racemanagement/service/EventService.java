@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class EventService {
@@ -17,40 +18,46 @@ public class EventService {
     EventRepository eventRepository;
 
     public List<Event> getAllEvents(){
-        return eventRepository.getAllEvents();
+        return eventRepository.findAll();
     }
     public List<Event> getAllRacersByTrackName(String trackName){
-        return eventRepository.getAllEvents().stream()
+        return eventRepository.findAll().stream()
                 .filter(event -> event.getTrack().getName().equals(trackName))
                 .toList();
     }
     public void createEvent(String eventName, Track track, ArrayList<Team> teams, LocalDate date){
-        eventRepository.createEvent(new Event(eventName, track, teams, date));
+        eventRepository.save(new Event(eventName, track, teams, date));
     }
     public void createEvent(String eventName, Track track, LocalDate date){
-        eventRepository.createEvent(new Event(eventName, track, date));
+        eventRepository.save(new Event(eventName, track, date));
     }
 
     public boolean deleteEventByID(Integer eventID){
-        return eventRepository.deleteEventById(eventID);
+        Optional<Event> eventOptional = eventRepository.findById(eventID);
+        if(eventOptional.isPresent()){
+            eventRepository.deleteById(eventID);
+            return true;
+        }else{
+            return false;
+        }
     }
     public List<Event> getAllEventsBefore(LocalDate date){
-        return eventRepository.getAllEvents().stream()
+        return eventRepository.findAll().stream()
                 .filter(event -> event.getDate().isBefore(date))
                 .toList();
     }
     public List<Event> getAllEventsAfter(LocalDate date){
-        return eventRepository.getAllEvents().stream()
+        return eventRepository.findAll().stream()
                 .filter(event -> event.getDate().isAfter(date))
                 .toList();
     }
     public List<Event> getUpcomingEvents(){
-        return eventRepository.getAllEvents().stream()
+        return eventRepository.findAll().stream()
                 .filter(event -> event.getDate().isAfter(LocalDate.now()))
                 .toList();
     }
     public List<Racer> getAllRacersFromNearestEvent(){
-        return eventRepository.getAllEvents().stream()
+        return eventRepository.findAll().stream()
                 .filter(event -> event.getDate().isAfter(LocalDate.now()))
                 .findFirst()
                 .get()
@@ -60,7 +67,7 @@ public class EventService {
                 .toList();
     }
     public List<Event> getEventsForTrack(Track track){
-        return eventRepository.getAllEvents().stream()
+        return eventRepository.findAll().stream()
                 .filter(event -> event.getTrack().equals(track))
                 .toList();
     }

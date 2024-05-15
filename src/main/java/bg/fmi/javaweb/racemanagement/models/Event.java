@@ -1,69 +1,55 @@
 package bg.fmi.javaweb.racemanagement.models;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+@Data
+@Entity
 public class Event {
-    private static final String DEFAULT_NAME = "Unknown Event";
-    private static final LocalDate DEFAULT_DATE = LocalDate.EPOCH;
-    private static Integer nextID = 0;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer ID;
+
+    @NotNull(message = "Event: name can't be null")
+    @NotBlank(message = "Event: name need to have minimum 1 non-white space character")
     private String name;
+
+    @NotNull(message = "Event: track can't be null")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "track_id")
     private Track track;
-    private final ArrayList<Team> teams;
+
+    @NotNull(message = "Event: teams can't be null")
+    @ManyToMany
+    @JoinTable(
+            name = "Event_Team",
+            joinColumns = {@JoinColumn(name = "event_id")},
+            inverseJoinColumns = {@JoinColumn(name = "team_id")}
+    )
+    private ArrayList<Team> teams;
+
+
+    @NotNull(message = "Event: date can't be null")
     private LocalDate date;
 
     public Event() {
-        setName(DEFAULT_NAME);
-        teams = new ArrayList<>();
-        date = LocalDate.now();
     }
-    public Event(String name, Track track , ArrayList<Team> teams, LocalDate date) {
-        setName(name);
-        setTrack(track);
-        this.teams = teams;
-        setDate(date);
-    }
-    public Event(String name, Track track, LocalDate date) {
-        setName(name);
-        setTrack(track);
-        teams = new ArrayList<>();
-        setDate(date);
-    }
-
-    public void setID() {
-        ID = nextID;
-        nextID++;
-    }
-    public Integer getID() {
-        return ID;
-    }
-    public void setName(String name) {
-        this.name = (name != null && !name.isEmpty() ? name : DEFAULT_NAME);
-    }
-    public String getName() {
-        return name;
-    }
-    public void setTrack(Track track) {
+    public Event(String name, Track track, ArrayList<Team> teams, LocalDate date) {
+        this.name = name;
         this.track = track;
-    }
-    public Track getTrack() {
-        return track;
-    }
-    public void addTeam(Team team) {
-        teams.add(team);
-    }
-    public void removeTeam(Team team) {
-        teams.remove(team);
-    }
-    public ArrayList<Team> getTeams() {
-        return teams;
-    }
-    public void setDate(LocalDate date) {
+        this.teams = teams;
         this.date = date;
     }
-    public LocalDate getDate() {
-        return date;
+    public Event(String name, Track track, LocalDate date) {
+        this.name = name;
+        this.track = track;
+        this.date = date;
     }
     @Override
     public String toString() {

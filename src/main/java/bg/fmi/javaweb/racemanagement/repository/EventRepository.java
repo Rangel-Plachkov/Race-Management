@@ -1,6 +1,7 @@
 package bg.fmi.javaweb.racemanagement.repository;
 
 import bg.fmi.javaweb.racemanagement.models.Event;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,9 +13,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-public class EventRepository {
+public interface EventRepository extends JpaRepository<Event, Integer> {
 
-    private static final Map<Integer, Event> eventTable = new HashMap<>();
+/*    private static final Map<Integer, Event> eventTable = new HashMap<>();
 
     public void createEvent(Event event) {
         if(event.getID() != null) {
@@ -39,6 +40,6 @@ public class EventRepository {
 
     public List<Event> getAllEvents() {
         return new ArrayList<>(eventTable.values());
-        //return eventTable.values().stream().collect(Collectors.toList());
-    }
+        //return eventTable.values().stream().collect(Collectors.toList());*
+    }*/
 }
