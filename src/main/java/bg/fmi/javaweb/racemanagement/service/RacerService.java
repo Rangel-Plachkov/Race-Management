@@ -7,26 +7,39 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class RacerService {
 
     @Autowired
-    RacerRepository racerRepository;
+    private final RacerRepository racerRepository;
+
+    @Autowired
+    public RacerService(RacerRepository racerRepository) {
+        this.racerRepository = racerRepository;
+    }
+
 
     public List<Racer> getAllRacers() {
-        return racerRepository.getAllRacers();
+        return racerRepository.findAll();
     }
 
     public List<Racer> getAllRacersByFirstName(String firstName) {
-        return racerRepository.getAllRacers().stream()
+        return racerRepository.findAll().stream()
                 .filter(racer -> Objects.equals(racer.getFirstName(), firstName) )
                 .toList();
     }
     public void createRacer(String firstName, String lastName, Integer age) {
-        racerRepository.createRacer(new Racer(firstName, lastName, age));
+        racerRepository.save(new Racer(firstName, lastName, age));
     }
     public boolean deleteRacerById(Integer id) {
-        return racerRepository.deleteRacerById(id);
+        Optional<Racer> racerOptional = racerRepository.findById(id);
+        if (racerOptional.isPresent()) {
+            racerRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
