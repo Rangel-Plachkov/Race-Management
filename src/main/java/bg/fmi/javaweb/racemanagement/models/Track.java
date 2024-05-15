@@ -1,41 +1,33 @@
 package bg.fmi.javaweb.racemanagement.models;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.Data;
+
+@Entity
+@Data
 public class Track {
-    private static final String DEFAULT_NAME = "Unknown Track";
-    private static final Integer DEFAULT_LENGTH = 0;
-    private static Integer nextID = 0;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer ID;
+
+    @NotNull(message = "Track: name can't be null")
+    @NotBlank(message = "Track: name need to have minimum 1 non-white space character")
     private String name;
+
+
+    @Min(value = 0, message = "Track: length can't be negative")
     private Integer length; //in meters
 
     public Track() {
-        setName(DEFAULT_NAME);
-        setLength(DEFAULT_LENGTH);
-    }
-    public Track(String name, Integer length) {
-        setName(name);
-        setLength(length);
     }
 
-    public void setID() {
-        ID = nextID;
-        nextID++;
+    public Track(String name, Integer length) {
+        this.name = name;
+        this.length = length;
     }
-    public Integer getID() {
-        return ID;
-    }
-    public void setName(String name) {
-        this.name = (name != null && !name.isEmpty() ? name : DEFAULT_NAME);
-    }
-    public String getName() {
-        return name;
-    }
-    public void setLength(Integer length) {
-        this.length = (length > DEFAULT_LENGTH ? length : DEFAULT_LENGTH);
-    }
-    public Integer getLength() {
-        return length;
-    }
+
     @Override
     public String toString() {
         return String.format("Track %d: %s, %d meters", ID, name, length);

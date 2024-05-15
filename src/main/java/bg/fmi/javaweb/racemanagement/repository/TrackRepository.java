@@ -2,16 +2,12 @@ package bg.fmi.javaweb.racemanagement.repository;
 
 import bg.fmi.javaweb.racemanagement.models.Track;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.ArrayList;
 @Repository
-public class TrackRepository {
+public interface TrackRepository extends JpaRepository<Track, Integer>{
 
-    private static final Map<Integer, Track> trackMapTable = new HashMap<>();
+/*    private static final Map<Integer, Track> trackMapTable = new HashMap<>();
 
 
     public void createTrack(Track track) {
@@ -47,5 +43,5 @@ public class TrackRepository {
 
     public List<Track> getAllTracks() {
         return new ArrayList<>(trackMapTable.values());
-    }
+    }*/
 }
