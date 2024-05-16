@@ -43,20 +43,29 @@ public class RacerService {
             return false;
         }
     }
-    public void assignRacerToTeam(Integer racerId, Team team) {
+    public void deleteAllRacers() {
+        racerRepository.deleteAll();
+    }
+    public boolean assignRacerToTeam(Integer racerId, Team team) {
         Optional<Racer> racerOptional = racerRepository.findById(racerId);
         if (racerOptional.isPresent()) {
             Racer racer = racerOptional.get();
             racer.setTeam(team);
             racerRepository.save(racer);
+            return true;
+        }else{
+            return false;
         }
     }
-    public void assignRacerToTeam(Integer racerId, String teamName) {
+    public boolean assignRacerToTeam(Integer racerId, String teamName) {
         Optional<Racer> racerOptional = racerRepository.findById(racerId);
         if (racerOptional.isPresent()) {
             Racer racer = racerOptional.get();
             racer.setTeam(new Team(teamName));
             racerRepository.save(racer);
+            return true;
+        }else{
+            return false;
         }
     }
 }
