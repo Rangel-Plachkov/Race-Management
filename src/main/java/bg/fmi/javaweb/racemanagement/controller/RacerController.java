@@ -1,64 +1,91 @@
 package bg.fmi.javaweb.racemanagement.controller;
 
 import bg.fmi.javaweb.racemanagement.dtos.RacerDTO;
+import bg.fmi.javaweb.racemanagement.mapper.RacerMapperT;
+import bg.fmi.javaweb.racemanagement.models.Racer;
 import bg.fmi.javaweb.racemanagement.service.RacerService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/racers")
 public class RacerController {
+
     @Autowired
     private final RacerService racerService;
 
+
+    @Autowired
     public RacerController(RacerService racerService) {
         this.racerService = racerService;
+
     }
+
     @PatchMapping("/assignTeam/")
-    public String assignTeam (@RequestParam(name = "racerId") Integer racerId, @RequestParam(name = "teamId") String teamId) {
+    public ResponseEntity<RacerDTO> assignTeam (@RequestParam(name = "racerId") Integer racerId, @RequestParam(name = "teamId") String teamId) {
         if (racerService.assignRacerToTeam(racerId, teamId)) {
-            return "Racer with id " + racerId + " assigned to team with id " + teamId;
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return "Racer with id " + racerId + " or team with id " + teamId + " not found";
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
 
     @GetMapping("/")
-    public String getRacers(@RequestParam(name = "firstName", required = false) String firstName) {
-        if (firstName != null) {
-            return racerService.getAllRacersByFirstName(firstName).toString();
+    public ResponseEntity<List<RacerDTO>> getRacers(@RequestParam(name = "firstName", required = false) String firstName) {
+        List<Racer> temp;
+        List<RacerDTO> result = new ArrayList<>();
+        if(firstName != null) {
+            temp = racerService.getAllRacersByFirstName(firstName);
+            for (Racer racer : temp) {
+                result.add(RacerMapperT.entityToDto(racer));
+            }
         } else {
-            return racerService.getAllRacers().toString();
+            temp = racerService.getAllRacers();
+            for (Racer racer : temp) {
+                result.add(RacerMapperT.entityToDto(racer));
+            }
         }
+        return new ResponseEntity<>(result, org.springframework.http.HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RacerDTO> getRacerById(@PathVariable Integer id) {
+        return new ResponseEntity<>(RacerMapperT.entityToDto(racerService.getRacerById(id)), org.springframework.http.HttpStatus.OK);
     }
 
     @PostMapping("/")
-    public String createRacer(@Valid @RequestBody RacerDTO newRacer) {
+    public ResponseEntity<RacerDTO> createRacer(@Valid @RequestBody RacerDTO newRacer) {
         racerService.createRacer(newRacer.getFirstName(), newRacer.getLastName(), newRacer.getAge());
-        return newRacer.toString();
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @DeleteMapping("/")
-    public String deleteRacer(@RequestParam(name = "id") Integer id) {
+    public ResponseEntity<RacerDTO> deleteRacer(@RequestParam(name = "id") Integer id) {
         if (racerService.deleteRacerById(id)) {
-            return "Racer with id " + id + " deleted";
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return "Racer with id " + id + " not found";
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @DeleteMapping("/all")
-    public String deleteAllRacer() {
+    public ResponseEntity<RacerDTO> deleteAllRacer() {
         racerService.deleteAllRacers();
-        return "All racers deleted";
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PatchMapping("/")
-    public String updateRacer(@Valid @RequestParam(name = "id") Integer id, @RequestBody RacerDTO newRacer) {
+    public ResponseEntity<RacerDTO> updateRacer(@Valid @RequestParam(name = "id") Integer id, @RequestBody RacerDTO newRacer) {
         if (racerService.deleteRacerById(id)) {
             racerService.createRacer(newRacer.getFirstName(), newRacer.getLastName(), newRacer.getAge());
-            return "Racer with id " + id + " updated";
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return "Racer with id " + id + " not found";
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

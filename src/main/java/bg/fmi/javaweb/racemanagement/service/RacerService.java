@@ -1,11 +1,13 @@
 package bg.fmi.javaweb.racemanagement.service;
 
+import bg.fmi.javaweb.racemanagement.mapper.RacerMapper;
 import bg.fmi.javaweb.racemanagement.models.Racer;
 import bg.fmi.javaweb.racemanagement.models.Team;
 import bg.fmi.javaweb.racemanagement.repository.RacerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -15,6 +17,8 @@ public class RacerService {
 
     @Autowired
     private final RacerRepository racerRepository;
+
+
 
     @Autowired
     public RacerService(RacerRepository racerRepository) {
@@ -30,6 +34,10 @@ public class RacerService {
         return racerRepository.findAll().stream()
                 .filter(racer -> Objects.equals(racer.getFirstName(), firstName) )
                 .toList();
+    }
+    public Racer getRacerById(Integer id) {
+        Optional<Racer> racerOptional = racerRepository.findById(id);
+        return racerOptional.orElse(null);
     }
     public void createRacer(String firstName, String lastName, Integer age) {
         racerRepository.save(new Racer(firstName, lastName, age));
@@ -68,4 +76,5 @@ public class RacerService {
             return false;
         }
     }
+
 }

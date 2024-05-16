@@ -4,13 +4,9 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Pattern;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-
 
 @Data
 @AllArgsConstructor
@@ -30,6 +26,7 @@ public class RacerDTO {
     @Min(value = 0, message = "Age must be non-negative")
     private Integer age;
 
+    @NotBlank(message = "Team is mandatory")
     @Size(max = 50, message = "Team name must be less than 50 characters")
     @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Team name must contain only letters or digits")
     private String team;
@@ -46,6 +43,7 @@ public class RacerDTO {
                 "name='" + firstName     + '\'' +
                 ", team='" + lastName + '\'' +
                 ", age='" + age + '\'' +
-                '}';
+                "team='" + team + '\'' +
+                '}' + '\n';
     }
 }
