@@ -1,6 +1,6 @@
 package bg.fmi.javaweb.racemanagement.controller;
 
-import bg.fmi.javaweb.racemanagement.models.RacerDTO;
+import bg.fmi.javaweb.racemanagement.dtos.RacerDTO;
 import bg.fmi.javaweb.racemanagement.service.RacerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

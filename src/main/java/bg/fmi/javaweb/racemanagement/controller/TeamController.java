@@ -1,7 +1,7 @@
 package bg.fmi.javaweb.racemanagement.controller;
 
 import bg.fmi.javaweb.racemanagement.service.TeamService;
-import bg.fmi.javaweb.racemanagement.models.TeamDTO;
+import bg.fmi.javaweb.racemanagement.dtos.TeamDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
