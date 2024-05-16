@@ -1,6 +1,7 @@
 package bg.fmi.javaweb.racemanagement.service;
 
 import bg.fmi.javaweb.racemanagement.models.Racer;
+import bg.fmi.javaweb.racemanagement.models.Team;
 import bg.fmi.javaweb.racemanagement.repository.RacerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,22 @@ public class RacerService {
             return true;
         } else {
             return false;
+        }
+    }
+    public void assignRacerToTeam(Integer racerId, Team team) {
+        Optional<Racer> racerOptional = racerRepository.findById(racerId);
+        if (racerOptional.isPresent()) {
+            Racer racer = racerOptional.get();
+            racer.setTeam(team);
+            racerRepository.save(racer);
+        }
+    }
+    public void assignRacerToTeam(Integer racerId, String teamName) {
+        Optional<Racer> racerOptional = racerRepository.findById(racerId);
+        if (racerOptional.isPresent()) {
+            Racer racer = racerOptional.get();
+            racer.setTeam(new Team(teamName));
+            racerRepository.save(racer);
         }
     }
 }
