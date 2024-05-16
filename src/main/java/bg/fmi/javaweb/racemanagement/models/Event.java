@@ -1,72 +1,71 @@
 package bg.fmi.javaweb.racemanagement.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.FetchType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Event {
-    private static final String DEFAULT_NAME = "Unknown Event";
-    private static final LocalDate DEFAULT_DATE = LocalDate.EPOCH;
-    private static Integer nextID = 0;
+    static final int MAX_NAME_LENGTH = 32;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer ID;
+
+    @NotNull(message = "Event: name can't be null")
+    @NotBlank(message = "Event: name need to have minimum 1 non-white space character")
+    @Size(max = MAX_NAME_LENGTH, message = "Event: Event's name need to be maximum of " + MAX_NAME_LENGTH + "characters length")
     private String name;
+
+    @NotNull(message = "Event: track can't be null")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "track_id")
     private Track track;
-    private final ArrayList<Team> teams;
+
+    @NotNull(message = "Event: teams can't be null")
+    @ManyToMany
+    @JoinTable(
+            name = "Event_Team",
+            joinColumns = {@JoinColumn(name = "event_id")},
+            inverseJoinColumns = {@JoinColumn(name = "team_id")}
+    )
+    private ArrayList<Team> teams;
+
+
+    @NotNull(message = "Event: date can't be null")
     private LocalDate date;
 
-    public Event() {
-        setName(DEFAULT_NAME);
-        teams = new ArrayList<>();
-        date = LocalDate.now();
-    }
-    public Event(String name, Track track , ArrayList<Team> teams, LocalDate date) {
-        setName(name);
-        setTrack(track);
-        this.teams = teams;
-        setDate(date);
-    }
-    public Event(String name, Track track, LocalDate date) {
-        setName(name);
-        setTrack(track);
-        teams = new ArrayList<>();
-        setDate(date);
-    }
-
-    public void setID() {
-        ID = nextID;
-        nextID++;
-    }
-    public Integer getID() {
-        return ID;
-    }
-    public void setName(String name) {
-        this.name = (name != null && !name.isEmpty() ? name : DEFAULT_NAME);
-    }
-    public String getName() {
-        return name;
-    }
-    public void setTrack(Track track) {
+    public Event(String name, Track track, ArrayList<Team> teams, LocalDate date) {
+        this.name = name;
         this.track = track;
-    }
-    public Track getTrack() {
-        return track;
-    }
-    public void addTeam(Team team) {
-        teams.add(team);
-    }
-    public void removeTeam(Team team) {
-        teams.remove(team);
-    }
-    public ArrayList<Team> getTeams() {
-        return teams;
-    }
-    public void setDate(LocalDate date) {
+        this.teams = teams;
         this.date = date;
     }
-    public LocalDate getDate() {
-        return date;
+    public Event(String name, Track track, LocalDate date) {
+        this.name = name;
+        this.track = track;
+        this.date = date;
     }
     @Override
     public String toString() {
-        return String.format("Event %d: %s, %s, %d teams, %s", ID, name, track, teams.size(), date);
+        return String.format("Event %d: %s, %s, %d #teams, %s", ID, name, track, teams.size(), date);
     }
 }

@@ -15,7 +15,12 @@ import java.time.LocalDate;
 public class EventController {
 
     @Autowired
-    EventService eventService;
+    private final EventService eventService;
+
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
+    }
+
 
     @GetMapping("/before")
     public String getAllEventsBefore(@RequestParam(name = "date" ,required = false) LocalDate date) {
@@ -57,8 +62,7 @@ public class EventController {
         eventService.createEvent(eventName, track, date);
         return "Event created";
     }
-    //TODO
-    @PostMapping("/")
+/*    @PostMapping("/")
     public String createEvent(@RequestParam(name = "eventName") String eventName,
                               @RequestBody TrackDTO trackDTO,
                               @RequestParam(name = "teams") String teams,
@@ -67,7 +71,7 @@ public class EventController {
         Track track = new Track(trackDTO.getName(), trackDTO.getLength());
         eventService.createEvent(eventName, track, date);
         return "Event created";
-    }
+    }*/
 
     @DeleteMapping("/")
     public String deleteEventByID(@RequestParam(name = "eventID") Integer eventID) {

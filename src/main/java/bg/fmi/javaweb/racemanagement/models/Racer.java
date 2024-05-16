@@ -1,58 +1,56 @@
 package bg.fmi.javaweb.racemanagement.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.FetchType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Racer {
-    private static final String DEFAULT_NAME = "Unknown";
-    private static final Integer DEFAULT_AGE = 0;
-    private static Integer nextID = 0;
+    static final int MAX_NAME_LENGTH = 32;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer ID;
+
+    @NotNull(message = "Racer: firstName can't be null")
+    @NotBlank(message = "Racer: firstName need to have minimum 1 non-white space character")
+    @Size(max = MAX_NAME_LENGTH, message = "Racer: Racer's firstname need to be maximum of " + MAX_NAME_LENGTH + "characters length")
     private String firstName;
+
+    @NotNull(message = "Racer: lastName can't be null")
+    @NotBlank(message = "Racer: lastName need to have minimum 1 non-white space character")
+    @Size(max = MAX_NAME_LENGTH, message = "Racer: Racer's lastname need to be maximum of " + MAX_NAME_LENGTH + "characters length")
     private String lastName;
+
+    @Min(value = 0, message = "Racer: age can't be negative")
     private Integer age;
 
-    public Racer() {
-        setFirstName(DEFAULT_NAME);
-        setLastName(DEFAULT_NAME);
-        setAge(DEFAULT_AGE);
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    Team team;
+
     public Racer(String firstName, String lastName, Integer age) {
-        setFirstName(firstName);
-        setLastName(lastName);
-        setAge(age);
-    }
-    public void setID() {
-        ID = nextID;
-        nextID++;
-    }
-    public Integer getID() {
-        return ID;
-    }
-    public void setAge(Integer age) {
-        this.age = (age > DEFAULT_AGE ? age : DEFAULT_AGE);
-    }
-    public Integer getAge() {
-        return age;
-    }
-    public void setFirstName(String firstName) {
-        this.firstName = convertToValidName(firstName);
-    }
-    public String getFirstName() {
-        return firstName;
-    }
-    public void setLastName(String lastName) {
-        this.lastName = convertToValidName(lastName);
-    }
-    public String getLastName() {
-        return lastName;
-    }
-    private static String convertToValidName(String input) {
-        if(input == null || input.isEmpty()) {
-            return DEFAULT_NAME;
-        }
-        return input;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
     }
     @Override
     public String toString() {
-        return String.format("Racer %d: %s %s, %d years old\n", ID, firstName, lastName, age);
+        return String.format("Racer %d: %s %s, age: %d\n", ID, firstName, lastName, age);
     }
 
 }

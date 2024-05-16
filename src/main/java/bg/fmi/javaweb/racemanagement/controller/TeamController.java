@@ -10,15 +10,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/teams")
 public class TeamController {
     @Autowired
-    TeamService teamService;
+    private final TeamService teamService;
+
+    public TeamController(TeamService teamService) {
+        this.teamService = teamService;
+    }
+
 
     @PostMapping("/")
-    String createTeam(@Valid @RequestBody TeamDTO newTeam) {
+    public String createTeam(@Valid @RequestBody TeamDTO newTeam) {
         teamService.createTeam(newTeam.getName());
         return newTeam.toString();
     }
     @GetMapping("/")
-    String getTeams(@RequestParam(name = "teamName", required = false) String teamName) {
+    public String getTeams(@RequestParam(name = "teamName", required = false) String teamName) {
         if(teamName != null) {
             return teamService.getAllTeamsByTeamName(teamName).toString();
         } else {
@@ -26,7 +31,7 @@ public class TeamController {
         }
     }
     @PatchMapping("/")
-    String updateTeam(@Valid @RequestParam(name = "name") String name, @RequestBody TeamDTO newTeam) {
+    public String updateTeam(@Valid @RequestParam(name = "name") String name, @RequestBody TeamDTO newTeam) {
         if(teamService.deleteTeamByName(name)) {
             teamService.createTeam(newTeam.getName());
             return "Team with name " + name + " updated";
@@ -35,7 +40,7 @@ public class TeamController {
         }
     }
     @DeleteMapping("/")
-    String deleteTeam(@RequestParam(name = "name") String name) {
+    public String deleteTeam(@RequestParam(name = "name") String name) {
         if(teamService.deleteTeamByName(name)) {
             return "Team with name " + name + " deleted";
         } else {

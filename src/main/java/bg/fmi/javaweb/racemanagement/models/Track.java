@@ -1,45 +1,45 @@
 package bg.fmi.javaweb.racemanagement.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Track {
-    private static final String DEFAULT_NAME = "Unknown Track";
-    private static final Integer DEFAULT_LENGTH = 0;
-    private static Integer nextID = 0;
+    static final int MAX_NAME_LENGTH = 32;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer ID;
+
+    @NotNull(message = "Track: name can't be null")
+    @NotBlank(message = "Track: name need to have minimum 1 non-white space character")
+    @Size(max = MAX_NAME_LENGTH, message = "Track: Track's name need to be maximum of " + MAX_NAME_LENGTH + "characters length")
     private String name;
+
+    @Min(value = 0, message = "Track: length can't be negative")
     private Integer length; //in meters
 
-    public Track() {
-        setName(DEFAULT_NAME);
-        setLength(DEFAULT_LENGTH);
-    }
+
     public Track(String name, Integer length) {
-        setName(name);
-        setLength(length);
+        this.name = name;
+        this.length = length;
     }
 
-    public void setID() {
-        ID = nextID;
-        nextID++;
-    }
-    public Integer getID() {
-        return ID;
-    }
-    public void setName(String name) {
-        this.name = (name != null && !name.isEmpty() ? name : DEFAULT_NAME);
-    }
-    public String getName() {
-        return name;
-    }
-    public void setLength(Integer length) {
-        this.length = (length > DEFAULT_LENGTH ? length : DEFAULT_LENGTH);
-    }
-    public Integer getLength() {
-        return length;
-    }
     @Override
     public String toString() {
         return String.format("Track %d: %s, %d meters", ID, name, length);
     }
-
 
 }

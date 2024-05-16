@@ -1,41 +1,35 @@
 package bg.fmi.javaweb.racemanagement.repository;
 
 import bg.fmi.javaweb.racemanagement.models.Racer;
+import bg.fmi.javaweb.racemanagement.models.Team;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Optional;
 
 
 @Repository
-public class RacerRepository {
-    private static final Map<Integer, Racer> racerTable = new HashMap<>();
+public interface RacerRepository extends JpaRepository<Racer, Integer>{
 
-    public void createRacer(Racer racer) {
-
-        if(racer.getID() != null) {
-            throw new IllegalArgumentException("Cannot create Racer with already given ID.");
-        }
-        racer.setID();
-        racerTable.put(racer.getID(), racer);
+    default void assignTeam(Integer racerID, Team team){
+        findById(racerID).ifPresent(racer -> {
+            racer.setTeam(team);
+            save(racer);
+        });
     }
-    public void updateRacer(Racer racer) {
-        if(racer.getID() == null) {
-            throw new IllegalArgumentException("Cannot update Racer without ID.");
-        }
-        racerTable.put(racer.getID(), racer);
+    default void assignTeam(ArrayList<Integer> racers, Team team){
+        racers.forEach(racerID -> assignTeam(racerID, team));
     }
-    public boolean deleteRacerById(Integer id) {
-        return racerTable.remove(id) != null;
-    }
-    public Optional<Racer> getRacerById(Integer id) {
-            return Optional.of(racerTable.get(id));
-    }
-    public List<Racer> getAllRacers() {
-        return new ArrayList<>(racerTable.values());
+    default void removeTeam(Integer racerID){
+        findById(racerID).ifPresent(racer -> {
+            racer.setTeam(null);
+            save(racer);
+        });
     }
 
+    default void createRacer(String firstName, String lastName, Integer age){
+        save(new Racer(firstName, lastName, age));
+    }
+    default void createRacer(String firstName, String lastName){
+        save(new Racer(firstName, lastName, null));
+    }
 }
