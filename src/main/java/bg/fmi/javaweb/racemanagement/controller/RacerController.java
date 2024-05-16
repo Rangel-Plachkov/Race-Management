@@ -1,6 +1,6 @@
 package bg.fmi.javaweb.racemanagement.controller;
 
-import bg.fmi.javaweb.racemanagement.models.RacerDTO;
+import bg.fmi.javaweb.racemanagement.dtos.RacerDTO;
 import bg.fmi.javaweb.racemanagement.service.RacerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,14 @@ public class RacerController {
 
     public RacerController(RacerService racerService) {
         this.racerService = racerService;
+    }
+    @PatchMapping("/assignTeam/")
+    public String assignTeam (@RequestParam(name = "racerId") Integer racerId, @RequestParam(name = "teamId") String teamId) {
+        if (racerService.assignRacerToTeam(racerId, teamId)) {
+            return "Racer with id " + racerId + " assigned to team with id " + teamId;
+        } else {
+            return "Racer with id " + racerId + " or team with id " + teamId + " not found";
+        }
     }
 
 
@@ -38,6 +46,11 @@ public class RacerController {
         } else {
             return "Racer with id " + id + " not found";
         }
+    }
+    @DeleteMapping("/all")
+    public String deleteAllRacer() {
+        racerService.deleteAllRacers();
+        return "All racers deleted";
     }
     @PatchMapping("/")
     public String updateRacer(@Valid @RequestParam(name = "id") Integer id, @RequestBody RacerDTO newRacer) {

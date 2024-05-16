@@ -1,7 +1,7 @@
 package bg.fmi.javaweb.racemanagement.mapper;
 
 import bg.fmi.javaweb.racemanagement.models.Team;
-import bg.fmi.javaweb.racemanagement.models.TeamDTO;
+import bg.fmi.javaweb.racemanagement.dtos.TeamDTO;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

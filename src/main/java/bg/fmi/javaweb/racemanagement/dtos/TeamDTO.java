@@ -1,4 +1,4 @@
-package bg.fmi.javaweb.racemanagement.models;
+package bg.fmi.javaweb.racemanagement.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

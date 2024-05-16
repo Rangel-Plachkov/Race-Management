@@ -1,6 +1,6 @@
 package bg.fmi.javaweb.racemanagement.controller;
 
-import bg.fmi.javaweb.racemanagement.models.TrackDTO;
+import bg.fmi.javaweb.racemanagement.dtos.TrackDTO;
 import bg.fmi.javaweb.racemanagement.service.TrackService;
 
 import jakarta.validation.Valid;

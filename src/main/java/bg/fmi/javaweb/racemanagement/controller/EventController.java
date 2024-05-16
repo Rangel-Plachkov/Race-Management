@@ -1,7 +1,7 @@
 package bg.fmi.javaweb.racemanagement.controller;
 
 import bg.fmi.javaweb.racemanagement.models.Track;
-import bg.fmi.javaweb.racemanagement.models.TrackDTO;
+import bg.fmi.javaweb.racemanagement.dtos.TrackDTO;
 import bg.fmi.javaweb.racemanagement.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
